@@ -69,5 +69,17 @@
 
             Assert.Equal(expectedTotal, total);
         }
+
+        [Theory]
+        [InlineData("BBB", 40)]
+        [InlineData("DD", 82.5)]
+        public void ReturnDiscountedTotalWhenProductsAligibleForDiscountAreScanned(string products, double expectedTotal)
+        {
+            fakeScanProduct(products);
+
+            var total = _checkoutService.GetTotalPrice();
+
+            Assert.Equal(expectedTotal, total);
+        }
     }
 }
