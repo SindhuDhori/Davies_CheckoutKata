@@ -55,5 +55,19 @@
 
             Assert.Equal(expectedTotal, total);
         }
+
+        [Theory]
+        [InlineData("AB", 25)]
+        [InlineData("BC", 55)]
+        [InlineData("CD", 95)]
+        [InlineData("DA", 65)]
+        public void ReturnTotalWhenTwoDifferentProductsAreScanned(string products, double expectedTotal)
+        {
+            fakeScanProduct(products);
+
+            var total = _checkoutService.GetTotalPrice();
+
+            Assert.Equal(expectedTotal, total);
+        }
     }
 }
