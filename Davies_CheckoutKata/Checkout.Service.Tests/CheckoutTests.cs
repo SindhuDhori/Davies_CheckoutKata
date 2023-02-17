@@ -81,5 +81,30 @@
 
             Assert.Equal(expectedTotal, total);
         }
+
+        [Theory]
+        [InlineData("", 0)]
+        [InlineData("A", 10)]
+        [InlineData("AA", 20)]
+        [InlineData("AAAA", 40)]
+        [InlineData("AAAABB", 70)]
+        [InlineData("AABBAA", 70)]
+        [InlineData("AAAAAA", 60)]
+        [InlineData("BBB", 40)]
+        [InlineData("BBBB", 55)]
+        [InlineData("CCC", 120)]
+        [InlineData("AAABBD", 115)]
+        [InlineData("AAABBDD", 142.5)]
+        [InlineData("CDABABA", 155)]
+        [InlineData("CDBA", 120)]
+        [InlineData("ABCDEFGHIJKLMNOP", 120)]
+        public void ReturnDiscountedTotalWhenProductsAreScannedInVariousOrder(string products, double expectedTotal)
+        {
+            fakeScanProduct(products);
+
+            var total = _checkoutService.GetTotalPrice();
+
+            Assert.Equal(expectedTotal, total);
+        }
     }
 }
